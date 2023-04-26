@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model tbl_desarrollador {
+  id_desarrollador                                                                               Int                            @id @default(autoincrement())
+  desarrollador_nombre                                                                           String                         @db.VarChar(50)
+  desarrollador_apellido                                                                         String                         @db.VarChar(50)
+  desarrollador_cargo                                                                            String                         @db.VarChar(100)
+  desarrollador_email                                                                            String                         @db.VarChar(200)
+  desarrollador_password                                                                       String                         @map("desarrollador_password") @db.VarChar(200)
+  desarrollador_telefono                                                                         Int?
+  desarrollador_descripcion                                                                      String?                        @db.LongText
+  desarrollador_foto                                                                             String?                        @db.VarChar(250)
+  tbl_desarrollador_redes_tbl_desarrollador_redes_tbl_desarrolladorTotbl_desarrollador           tbl_desarrollador_redes[]      @relation("tbl_desarrollador_redes_tbl_desarrolladorTotbl_desarrollador")
+  tbl_desarrollador_tecnologia_tbl_desarrollador_tecnologia_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador_tecnologia[] @relation("tbl_desarrollador_tecnologia_tbl_desarrolladorTotbl_desarrollador")
+  tbl_desarrollador_trabajos                                                                     tbl_desarrollador_trabajos[]
+  tbl_educacion_tbl_educacion_tbl_desarrolladorTotbl_desarrollador                               tbl_educacion[]                @relation("tbl_educacion_tbl_desarrolladorTotbl_desarrollador")
+  tbl_experiencia_tbl_experiencia_tbl_desarrolladorTotbl_desarrollador                           tbl_experiencia[]              @relation("tbl_experiencia_tbl_desarrolladorTotbl_desarrollador")
+}
+
+model tbl_desarrollador_redes {
+  id_desarrollador_redes                                                         Int               @id @default(autoincrement())
+  desarrollador_redes_url                                                        String            @db.VarChar(250)
+  tbl_desarrollador                                                              Int
+  tbl_redes                                                                      Int
+  tbl_desarrollador_tbl_desarrollador_redes_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador @relation("tbl_desarrollador_redes_tbl_desarrolladorTotbl_desarrollador", fields: [tbl_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_redes_tbl_desarrollador1")
+  tbl_redes_tbl_desarrollador_redes_tbl_redesTotbl_redes                         tbl_redes         @relation("tbl_desarrollador_redes_tbl_redesTotbl_redes", fields: [tbl_redes], references: [id_redes], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_redes_tbl_redes1")
+
+  @@index([tbl_desarrollador], map: "fk_tbl_desarrollador_redes_tbl_desarrollador1")
+  @@index([tbl_redes], map: "fk_tbl_desarrollador_redes_tbl_redes1")
+}
+
+model tbl_desarrollador_tecnologia {
+  idtbl_desarrollador_tecnologia                                                      Int               @id @default(autoincrement())
+  tbl_desarrollador                                                                   Int
+  tbl_tecnologia                                                                      Int
+  tbl_desarrollador_tbl_desarrollador_tecnologia_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador @relation("tbl_desarrollador_tecnologia_tbl_desarrolladorTotbl_desarrollador", fields: [tbl_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_tecnologia_tbl_desarrollador1")
+  tbl_tecnologia_tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia          tbl_tecnologia    @relation("tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia", fields: [tbl_tecnologia], references: [id_tecnologia], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_tecnologia_tbl_tecnologia1")
+
+  @@index([tbl_desarrollador], map: "fk_tbl_desarrollador_tecnologia_tbl_desarrollador1")
+  @@index([tbl_tecnologia], map: "fk_tbl_desarrollador_tecnologia_tbl_tecnologia1")
+}
+
+model tbl_desarrollador_trabajos {
+  idtbl_desarrollador_trabajos Int               @id @default(autoincrement())
+  desarrollador_trabajos_chat  String?           @db.VarChar(1)
+  id_desarrollador             Int
+  id_trabajos                  Int
+  tbl_desarrollador            tbl_desarrollador @relation(fields: [id_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_trabajos_tbl_desarrollador1")
+  tbl_trabajos                 tbl_trabajos      @relation(fields: [id_trabajos], references: [id_trabajos], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_trabajos_tbl_trabajos1")
+
+  @@index([id_desarrollador], map: "fk_tbl_desarrollador_trabajos_tbl_desarrollador1")
+  @@index([id_trabajos], map: "fk_tbl_desarrollador_trabajos_tbl_trabajos1")
+}
+
+model tbl_educacion {
+  id_educacion                                                         Int               @id @default(autoincrement())
+  educacion_institucion                                                String            @db.VarChar(150)
+  educacion_carrera                                                    String            @db.VarChar(100)
+  educacion_certificado                                                String?           @db.VarChar(250)
+  educacion_foto                                                       String?           @db.VarChar(250)
+  tbl_desarrollador                                                    Int
+  tbl_desarrollador_tbl_educacion_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador @relation("tbl_educacion_tbl_desarrolladorTotbl_desarrollador", fields: [tbl_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_educacion_tbl_desarrollador1")
+
+  @@index([tbl_desarrollador], map: "fk_tbl_educacion_tbl_desarrollador1")
+}
+
+model tbl_empresa {
+  id_empresa             Int                      @id @default(autoincrement())
+  empresa_razon_social   String                   @db.VarChar(100)
+  empresa_ruc            String                   @db.VarChar(11)
+  empresa_telefono       Int?
+  empresa_descripcion    String                   @db.LongText
+  empresa_foto           String?                  @db.VarChar(250)
+  empresa_encargado      String                   @db.VarChar(100)
+  empresa_email          String                   @db.VarChar(250)
+  empresa_password     String                   @map("empresa_password") @db.VarChar(250)
+  tbl_empresa_red        tbl_empresa_red[]
+  tbl_empresa_tecnologia tbl_empresa_tecnologia[]
+  tbl_trabajos           tbl_trabajos[]
+}
+
+model tbl_empresa_red {
+  idtbl_empresa_red Int         @id @default(autoincrement())
+  empresa_red_url   String      @db.VarChar(45)
+  id_redes          Int
+  id_empresa        Int
+  tbl_empresa       tbl_empresa @relation(fields: [id_empresa], references: [id_empresa], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_empresa_red_tbl_empresa1")
+  tbl_redes         tbl_redes   @relation(fields: [id_redes], references: [id_redes], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_empresa_red_tbl_redes1")
+
+  @@index([id_empresa], map: "fk_tbl_empresa_red_tbl_empresa1")
+  @@index([id_redes], map: "fk_tbl_empresa_red_tbl_redes1")
+}
+
+model tbl_empresa_tecnologia {
+  idtbl_empresa_tecnologia Int            @id @default(autoincrement())
+  id_tecnologia            Int
+  id_empresa               Int
+  tbl_empresa              tbl_empresa    @relation(fields: [id_empresa], references: [id_empresa], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_empresa_tecnologia_tbl_empresa1")
+  tbl_tecnologia           tbl_tecnologia @relation(fields: [id_tecnologia], references: [id_tecnologia], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_empresa_tecnologia_tbl_tecnologia1")
+
+  @@index([id_empresa], map: "fk_tbl_empresa_tecnologia_tbl_empresa1")
+  @@index([id_tecnologia], map: "fk_tbl_empresa_tecnologia_tbl_tecnologia1")
+}
+
+model tbl_experiencia {
+  id_experiencia                                                         Int               @id @default(autoincrement())
+  experiencia_empresa                                                    String            @db.VarChar(50)
+  experiencia_cargo                                                      String            @db.VarChar(100)
+  experiencia_finicio                                                    DateTime          @db.Date
+  experiencia_ffin                                                       DateTime?         @db.Date
+  experiencia_logo                                                       String?           @db.VarChar(45)
+  tbl_desarrollador                                                      Int
+  tbl_desarrollador_tbl_experiencia_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador @relation("tbl_experiencia_tbl_desarrolladorTotbl_desarrollador", fields: [tbl_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_experiencia_tbl_desarrollador")
+
+  @@index([tbl_desarrollador], map: "fk_tbl_experiencia_tbl_desarrollador")
+}
+
+model tbl_redes {
+  id_redes                                                             Int                       @id @default(autoincrement())
+  redes_redes                                                          String                    @db.VarChar(50)
+  tbl_desarrollador_redes_tbl_desarrollador_redes_tbl_redesTotbl_redes tbl_desarrollador_redes[] @relation("tbl_desarrollador_redes_tbl_redesTotbl_redes")
+  tbl_empresa_red                                                      tbl_empresa_red[]
+}
+
+model tbl_tecnologia {
+  id_tecnologia                                                                            Int                            @id @default(autoincrement())
+  tecnologia_nombre                                                                        String                         @db.VarChar(50)
+  tecnologia_imagen                                                                        String                         @db.VarChar(250)
+  tbl_desarrollador_tecnologia_tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia tbl_desarrollador_tecnologia[] @relation("tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia")
+  tbl_empresa_tecnologia                                                                   tbl_empresa_tecnologia[]
+  tbl_trabajos_tecnologia                                                                  tbl_trabajos_tecnologia[]
+}
+
+model tbl_trabajos {
+  id_trabajos                Int                          @id @default(autoincrement())
+  trabajos_cargo             String                       @db.VarChar(45)
+  trabajos_modalidad         String                       @db.VarChar(45)
+  trabajos_jornada           String                       @db.VarChar(45)
+  trabajos_salario           String?                      @db.VarChar(45)
+  trabajos_publicado         String                       @db.VarChar(45)
+  id_empresa                 Int
+  tbl_desarrollador_trabajos tbl_desarrollador_trabajos[]
+  tbl_empresa                tbl_empresa                  @relation(fields: [id_empresa], references: [id_empresa], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_trabajos_tbl_empresa1")
+  tbl_trabajos_tecnologia    tbl_trabajos_tecnologia[]
+
+  @@index([id_empresa], map: "fk_tbl_trabajos_tbl_empresa1")
+}
+
+model tbl_trabajos_tecnologia {
+  id_trabajos_tecnologia Int            @id @default(autoincrement())
+  id_tecnologia          Int
+  id_trabajos            Int
+  tbl_tecnologia         tbl_tecnologia @relation(fields: [id_tecnologia], references: [id_tecnologia], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_puesto_trab_tecnologia_tbl_tecnologia1")
+  tbl_trabajos           tbl_trabajos   @relation(fields: [id_trabajos], references: [id_trabajos], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_trabajos_tecnologia_tbl_trabajos1")
+
+  @@index([id_tecnologia], map: "fk_tbl_puesto_trab_tecnologia_tbl_tecnologia1")
+  @@index([id_trabajos], map: "fk_tbl_trabajos_tecnologia_tbl_trabajos1")
+}
