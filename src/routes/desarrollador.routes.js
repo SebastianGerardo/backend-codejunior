@@ -5,6 +5,7 @@ const {
     updateDesarrollador,
     deleteDesarrollador
 } = require('../services/desarrollador.service');
+const { getExperiencia } = require('../services/experiencia.service');
 
 function ApiUsuarioDesarrollador(app){
     const router = require('express').Router();
@@ -20,9 +21,13 @@ function ApiUsuarioDesarrollador(app){
 
     router.get('/:id', async (req, res) => {
         const user = await getDesarrolladorById(req.params.id);
+        const experiencia = await getExperiencia(req.params.id);
         res.json({
             status: true,
-            content: user
+            content: {
+                ...user,
+                experiencia: experiencia
+            }
         });
     })
 
