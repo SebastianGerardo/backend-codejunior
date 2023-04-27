@@ -28,13 +28,14 @@ function ApiUsuarioDesarrollador(app){
     //     });
     // })
 
-    // router.post('/', async (req, res) => {
-    //     const user = await createDesarrollador(req.body);
-    //     res.json({
-    //         status: true,
-    //         content: user
-    //     });
-    // })
+    router.post('/', async (req, res) => {
+        const user = await createDesarrollador(req.body);
+        console.log("soy el",user)
+        res.json({
+            status: true,
+            content: user
+        });
+    })
 
     router.post('/login', async (req, res) => {
         try {
