@@ -4,13 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const prisma = new PrismaClient();
 
-// async function getDesarrollador() {
-//   const users = await prisma.tbl_desarrollador.findMany();
-//   return users;
-// }
-
 async function getDesarrollador(id) {
-    console.log("iddd", id)
     const user = await prisma.tbl_desarrollador.findUnique({
         where: {
             id_desarrollador: parseInt(id)
@@ -47,8 +41,6 @@ async function loginDesarrollador(data) {
       }
     );
   
-       //console.log(token);
-
     return {token};
   }
 

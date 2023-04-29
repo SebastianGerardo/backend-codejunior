@@ -12,25 +12,9 @@ function ApiUsuarioDesarrollador(app){
     const router = require('express').Router();
     app.use('/desarrollador', router);
 
-    // router.get('/', async (req, res) => {
-    //     const users = await getDesarrollador();
-    //     res.json({
-    //         status: true,
-    //         content: users
-    //     });
-    // })
-
-    // router.get('/:id', async (req, res) => {
-    //     const user = await getDesarrolladorById(req.params.id);
-    //     res.json({
-    //         status: true,
-    //         content: user
-    //     });
-    // })
-
     router.post('/', async (req, res) => {
+        // console.log("soy el",req.body)
         const user = await createDesarrollador(req.body);
-        console.log("soy el",user)
         res.json({
             status: true,
             content: user
@@ -52,37 +36,34 @@ function ApiUsuarioDesarrollador(app){
         }
     })
 
-    router.get('/', verifyToken,  async (req, res) => {
-        console.log("soy el",req.body)
-        try {
-            const user = await getDesarrollador(2);
-            res.status(200).json({
-                status: 200,
-                content: user
-            });
-        } catch (err) {
-            res.status(401).json({ 
-                status: 401,
-                message: "Contraseña y/o correo invalido jijiji"
-             });
+    router.get('/:id', verifyToken, async (req, res) => {
+        const requestedUserId = req.params.id;
+        const userId = req.userId;
+      
+        console.log("hola",requestedUserId);
+
+        // Verificar que el usuario tenga acceso a la información solicitada
+        if (requestedUserId != userId) {
+          return res.status(403).json({
+            status: false,
+            content: 'No tienes acceso a esta información'
+          });
         }
-    })
-
-    // router.put('/:id', async (req, res) => {
-    //     const user = await updateDesarrollador(req.params.id, req.body);
-    //     res.json({
-    //         status: true,
-    //         content: user
-    //     });
-    // })
-
-    // router.delete('/:id', async (req, res) => {
-    //     const user = await deleteDesarrollador(req.params.id);
-    //     res.json({
-    //         status: true,
-    //         content: user
-    //     });
-    // })
+      
+        try {
+          const user = await getDesarrollador(requestedUserId);
+          res.status(200).json({
+            status: 200,
+            content: user
+          });
+        } catch (err) {
+          res.status(401).json({
+            status: 401,
+            message: "Contraseña y/o correo invalido jijiji"
+          });
+        }
+      })
+      
 }
 
 module.exports = ApiUsuarioDesarrollador;
