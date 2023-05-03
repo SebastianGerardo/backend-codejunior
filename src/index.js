@@ -1,7 +1,8 @@
 const express = require('express');
 const ApiUsuarioEmpresa = require('./routes/empresa.routes');
 const ApiUsuarioDesarrollador = require('./routes/desarrollador.routes');
-const cors = require('cors')
+const cors = require('cors');
+const Auth = require('./routes/auth.routes');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 //AQUI LLAMAMOS A LAS RUTAS
 ApiUsuarioEmpresa(app)
 ApiUsuarioDesarrollador(app)
+Auth(app)
 
 
 app.listen(3000, () => {
