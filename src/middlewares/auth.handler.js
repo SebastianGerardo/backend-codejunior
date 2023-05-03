@@ -8,7 +8,9 @@ function verifyToken(req, res, next) {
       try {
         const decoded = jwt.verify(token, process.env.jwt_secret)
         const userId = decoded.id;
+        const tipoId = decoded.tipo;
         req.userId = userId; // agregamos la propiedad userId al objeto req
+        req.tipoId = tipoId;
         return next()
       } catch (err) {
         return res.status(401).json({

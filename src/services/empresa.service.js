@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const {PrismaClient} = require('@prisma/client');
 
 const prisma = new PrismaClient();
@@ -17,6 +18,8 @@ async function getEmpresaById(id) {
 }
 
 async function createEmpresa(data) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(data.empresa_password, salt);
     const user = await prisma.tbl_empresa.create({
         data: {
             empresa_razon_social: data.empresa_razon_social,
@@ -26,7 +29,7 @@ async function createEmpresa(data) {
             empresa_foto: data.empresa_foto,
             empresa_encargado: data.empresa_encargado,
             empresa_email: data.empresa_email,
-            empresa_password: data.empresa_password
+            empresa_password: hashedPassword
         }
     });
     return user;

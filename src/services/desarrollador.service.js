@@ -14,12 +14,13 @@ async function getDesarrollador(id) {
 }
 
 async function loginDesarrollador(data) {
+  if (data?.tipo == "desarrollador") {
     const user = await prisma.tbl_desarrollador.findFirst({
       where: {
         desarrollador_email: data.desarrollador_email,
       },
     });
-  
+
     if (!user) {
       return null;
     }
@@ -34,7 +35,7 @@ async function loginDesarrollador(data) {
     }
 
     const token = jwt.sign(
-      { id: user.id_desarrollador, correo: user.desarrollador_email },
+      { id: user.id_desarrollador, correo: user.desarrollador_email, tipo:data.tipo },
       process.env.JWT_SECRET, //chapa del env
       {
         expiresIn: "1d",
@@ -42,6 +43,43 @@ async function loginDesarrollador(data) {
     );
   
     return {token};
+  } else if (data?.tipo == "empresa") {
+
+    const user = await prisma.tbl_empresa.findFirst({
+      where: {
+        empresa_email: data.desarrollador_email,
+      },
+    });
+
+    console.log("soy el user",user);
+
+    if (!user) {
+      return null;
+    }
+  
+    const validatePassword = await bcrypt.compare(
+      data.desarrollador_password,
+      user.empresa_password,
+    );
+
+  
+    if (!validatePassword) {
+      return null;
+    }
+    console.log("soy el validate");
+
+    const token = jwt.sign(
+      { id: user.id_empresa, correo: user.empresa_email, tipo: data.tipo },
+      process.env.JWT_SECRET, //chapa del env
+      {
+        expiresIn: "1d",
+      }
+    );
+  
+      console.log("soy el token",token);
+
+    return {token};
+  }
   }
 
 async function createDesarrollador(data) {

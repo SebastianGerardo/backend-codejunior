@@ -8,12 +8,13 @@ const {
     loginDesarrollador
 } = require('../services/desarrollador.service');
 
+const {getEmpresaById} = require('../services/empresa.service');
+
 function ApiUsuarioDesarrollador(app){
     const router = require('express').Router();
     app.use('/desarrollador', router);
 
     router.post('/', async (req, res) => {
-        // console.log("soy el",req.body)
         const user = await createDesarrollador(req.body);
         res.json({
             status: true,
@@ -36,33 +37,33 @@ function ApiUsuarioDesarrollador(app){
         }
     })
 
-    router.get('/:id', verifyToken, async (req, res) => {
-        const requestedUserId = req.params.id;
-        const userId = req.userId;
+    router.get('/', verifyToken, async (req, res) => {
+      const userId = req.userId;
+      const tipoId = req.tipoId;
+    
+      console.log(userId)
       
-        console.log("hola",requestedUserId);
-
-        // Verificar que el usuario tenga acceso a la información solicitada
-        if (requestedUserId != userId) {
-          return res.status(403).json({
-            status: false,
-            content: 'No tienes acceso a esta información'
-          });
-        }
-      
-        try {
-          const user = await getDesarrollador(requestedUserId);
+      try {
+        if (tipoId == "desarrollador") {
+          const user = await getDesarrollador(userId);
           res.status(200).json({
             status: 200,
             content: user
           });
-        } catch (err) {
-          res.status(401).json({
-            status: 401,
-            message: "Contraseña y/o correo invalido jijiji"
+        } else if (tipoId == "empresa") {
+          const user = await getEmpresaById(userId);
+          res.status(200).json({
+            status: 200,
+            content: user
           });
         }
-      })
+      } catch (err) {
+        res.status(401).json({
+          status: 401,
+          message: "Contraseña y/o correo invalido jijiji"
+        });
+      }
+    })
       
 }
 
