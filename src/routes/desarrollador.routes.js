@@ -18,6 +18,23 @@ function ApiUsuarioDesarrollador(app){
             content: user
         });
     })    
+
+    router.get('/', verifyToken,  async (req, res) => {
+        const userId = req.userId;
+        try {
+            const user = await getDesarrollador(userId);
+            res.status(200).json({
+                status: 200,
+                content: user
+            });
+        }
+        catch (err) {
+            res.status(401).json({
+                status: 401,
+                message: "Contraseña y/o correo invalido"
+            });
+        }
+    })
 }
 
 module.exports = ApiUsuarioDesarrollador;
