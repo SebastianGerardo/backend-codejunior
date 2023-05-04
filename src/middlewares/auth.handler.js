@@ -15,7 +15,7 @@ function verifyToken(req, res, next) {
         req.tipoId = tipoId;
         return next()
       } catch (err) {
-        console.log("estoyfuera verifyToken", token, process.env.jwt_secret, bearerToken)
+        console.log("estoyfuera verifyToken", token, err, bearerToken)
         return res.status(401).json({
           status: false,
           content: "errorcito"
