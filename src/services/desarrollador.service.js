@@ -24,17 +24,37 @@ async function getDesarrollador(id) {
       where: {tbl_desarrollador: parseInt(id)}
     })
     const tecnologias = await prisma.tbl_desarrollador_tecnologia.findMany({
+      select: {
+        idtbl_desarrollador_tecnologia: true,
+        tbl_tecnologia_tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia: {
+          select: {
+            tecnologia_nombre: true,
+            tecnologia_imagen: true
+          }
+        }
+      },
       where: {tbl_desarrollador: parseInt(id)}
     })
     const redes = await prisma.tbl_desarrollador_redes.findMany({
-      where: {tbl_desarrollador: parseInt(id)}
+      select: {
+        id_desarrollador_redes: true,
+        desarrollador_redes_url: true,
+        tbl_redes_tbl_desarrollador_redes_tbl_redesTotbl_redes: {
+          select: {
+            redes_redes: true
+          }
+        }
+      },
+      where: {
+        tbl_desarrollador: parseInt(id)
+      }
     })
     const user = {
       ...desarrollador,
       experiencia: experiencia,
       educacion: educacion,
       tecnologias:tecnologias,
-      redes: redes
+      redes : redes
     }
 
     return user;

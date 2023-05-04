@@ -30,7 +30,6 @@ function Auth(app){
         
         try {
           if (tipoId == "desarrollador") {
-            console.log('user')
             const user = await getDesarrollador(userId);
             res.status(200).json({
               status: 200,
@@ -44,6 +43,7 @@ function Auth(app){
             });
           }
         } catch (err) {
+          console.log(err)
           res.status(401).json({
             status: 401,
             message: "Contraseña y/o correo invalido jijiji"
