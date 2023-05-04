@@ -27,6 +27,7 @@ function Auth(app){
         const userId = req.userId;
         const tipoId = req.tipoId;
         
+        console.log("estoy en verify",userId, tipoId)
         
         try {
           if (tipoId == "desarrollador") {

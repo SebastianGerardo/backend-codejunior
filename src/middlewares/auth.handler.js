@@ -5,7 +5,9 @@ function verifyToken(req, res, next) {
     if (typeof bearerToken !== 'undefined') {
       const bearer = bearerToken.split(' ')
       const token = bearer[1]
+      console.log("estoy en verifyToken", token, process.env.jwt_secret, bearerToken)
       try {
+        console.log("estoydentro verifyToken", token, process.env.jwt_secret, bearerToken)
         const decoded = jwt.verify(token, process.env.jwt_secret)
         const userId = decoded.id;
         const tipoId = decoded.tipo;
@@ -13,6 +15,7 @@ function verifyToken(req, res, next) {
         req.tipoId = tipoId;
         return next()
       } catch (err) {
+        console.log("estoyfuera verifyToken", token, process.env.jwt_secret, bearerToken)
         return res.status(401).json({
           status: false,
           content: "errorcito"
