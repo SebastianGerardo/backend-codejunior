@@ -4,6 +4,7 @@ const ApiUsuarioDesarrollador = require('./routes/desarrollador.routes');
 const cors = require('cors');
 const Auth = require('./routes/auth.routes');
 const ApiExperienciaDesarrollador = require('./routes/experiencia.routes');
+const ApiEduacionDesarrollador = require('./routes/educacion.routes');
 
 const app = express();
 
@@ -21,6 +22,7 @@ ApiUsuarioEmpresa(app)
 ApiUsuarioDesarrollador(app)
 Auth(app)
 ApiExperienciaDesarrollador(app)
+ApiEduacionDesarrollador(app)
 
 
 app.listen(3000, () => {

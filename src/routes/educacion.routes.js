@@ -1,19 +1,19 @@
 const {
-    createExperiencia,
-    updateExperiencia,
-    deleteExperiencia
-} = require('../services/experiencia.service');
+    createEducacion,
+    updateEducacion,
+    deleteEducacion
+} = require('../services/educacion.service');
 
-function ApiExperienciaDesarrollador(app){
+function ApiEduacionDesarrollador(app){
     const router = require('express').Router();
-    app.use('/desarrollador_experiencia', router);
+    app.use('/desarrollador_educacion', router);
 
     router.post('/', async (req, res) => {
         try {
-            const experiencia = await createExperiencia(req.body);
+            const educacion = await createEducacion(req.body);
             res.status(200).json({
                 status: true,
-                message: "Experiencia creada exitosamente"
+                message: "Educacion creada exitosamente"
             });
         } catch (error) {
             console.log(error);
@@ -26,10 +26,10 @@ function ApiExperienciaDesarrollador(app){
 
     router.put('/:id', async (req, res) => {
         try {
-            const experiencia = await updateExperiencia(req.params.id, req.body);
+            const educacion = await updateEducacion(req.params.id, req.body);
             res.json({
                 status: true,
-                message: "Experiencia actualizada exitosamente"
+                message: "Educacion actualizada exitosamente"
             });
         } catch (error) {
             console.log(error);
@@ -42,10 +42,10 @@ function ApiExperienciaDesarrollador(app){
 
     router.delete('/:id', async (req, res) => {
         try {
-            const experiencia = await deleteExperiencia(req.params.id);
+            const educacion = await deleteEducacion(req.params.id);
             res.json({
                 status: true,
-                message: "Experiencia eliminada exitosamente"
+                message: "Educacion eliminada exitosamente"
             });
         } catch (error) {
             res.status(500).json({
@@ -56,4 +56,4 @@ function ApiExperienciaDesarrollador(app){
     })
 }
 
-module.exports = ApiExperienciaDesarrollador;
+module.exports = ApiEduacionDesarrollador;
