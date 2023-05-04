@@ -6,8 +6,8 @@ async function createExperiencia(data) {
     data: {
         experiencia_empresa: data.empresa,
         experiencia_cargo: data.cargo,
-        experiencia_fecha_inicio: data.fecha_inicio,
-        experiencia_fecha_fin: data.fecha_fin,
+        experiencia_finicio: data.fecha_inicio,
+        experiencia_ffin: data.fecha_fin,
         experiencia_logo: data.logo,
         tbl_desarrollador: data.id_desarrollador,
     }
@@ -21,8 +21,8 @@ async function updateExperiencia(id, data) {
     data: {
       experiencia_empresa: data.empresa,
       experiencia_cargo: data.cargo,
-      experiencia_fecha_inicio: data.fecha_inicio,
-      experiencia_fecha_fin: data.fecha_fin,
+      experiencia_finicio: data.fecha_inicio,
+      experiencia_ffin: data.fecha_fin,
       experiencia_logo: data.logo,
     },
   });
