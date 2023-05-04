@@ -26,7 +26,7 @@ async function getDesarrollador(id) {
     const tecnologias = await prisma.tbl_desarrollador_tecnologia.findMany({
       select: {
         idtbl_desarrollador_tecnologia: true,
-        tbl_tecnologia_tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia: {
+        id_tecnologia: {
           select: {
             tecnologia_nombre: true,
             tecnologia_imagen: true
@@ -39,7 +39,7 @@ async function getDesarrollador(id) {
       select: {
         id_desarrollador_redes: true,
         desarrollador_redes_url: true,
-        tbl_redes_tbl_desarrollador_redes_tbl_redesTotbl_redes: {
+        id_redes: {
           select: {
             redes_redes: true
           }

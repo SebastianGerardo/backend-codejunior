@@ -30,7 +30,7 @@ model tbl_desarrollador_redes {
   tbl_desarrollador                                                              Int
   tbl_redes                                                                      Int
   tbl_desarrollador_tbl_desarrollador_redes_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador @relation("tbl_desarrollador_redes_tbl_desarrolladorTotbl_desarrollador", fields: [tbl_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_redes_tbl_desarrollador1")
-  tbl_redes_tbl_desarrollador_redes_tbl_redesTotbl_redes                         tbl_redes         @relation("tbl_desarrollador_redes_tbl_redesTotbl_redes", fields: [tbl_redes], references: [id_redes], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_redes_tbl_redes1")
+  id_redes                                                                       tbl_redes         @relation("tbl_desarrollador_redes_tbl_redesTotbl_redes", fields: [tbl_redes], references: [id_redes], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_redes_tbl_redes1")
 
   @@index([tbl_desarrollador], map: "fk_tbl_desarrollador_redes_tbl_desarrollador1")
   @@index([tbl_redes], map: "fk_tbl_desarrollador_redes_tbl_redes1")
@@ -41,7 +41,7 @@ model tbl_desarrollador_tecnologia {
   tbl_desarrollador                                                                   Int
   tbl_tecnologia                                                                      Int
   tbl_desarrollador_tbl_desarrollador_tecnologia_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador @relation("tbl_desarrollador_tecnologia_tbl_desarrolladorTotbl_desarrollador", fields: [tbl_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_tecnologia_tbl_desarrollador1")
-  tbl_tecnologia_tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia          tbl_tecnologia    @relation("tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia", fields: [tbl_tecnologia], references: [id_tecnologia], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_tecnologia_tbl_tecnologia1")
+  id_tecnologia                                                                       tbl_tecnologia    @relation("tbl_desarrollador_tecnologia_tbl_tecnologiaTotbl_tecnologia", fields: [tbl_tecnologia], references: [id_tecnologia], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_desarrollador_tecnologia_tbl_tecnologia1")
 
   @@index([tbl_desarrollador], map: "fk_tbl_desarrollador_tecnologia_tbl_desarrollador1")
   @@index([tbl_tecnologia], map: "fk_tbl_desarrollador_tecnologia_tbl_tecnologia1")
