@@ -14,7 +14,10 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Hello World' });
+    res.json({ 
+        status: 200,
+        message: 'Servidor Activo' 
+    });
 })
 
 //AQUI LLAMAMOS A LAS RUTAS
