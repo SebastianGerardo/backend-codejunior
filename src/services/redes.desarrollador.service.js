@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function createRedesDesarrollador(data) {
-    const redesDesarrolladorCreada = await prisma.tbl_redes_desarrollador.create({
+    const redesDesarrolladorCreada = await prisma.tbl_desarrollador_redes.create({
         data: {
             desarrollador_redes_url: data.url,
             tbl_desarrollador: data.id_desarrollador,
@@ -12,10 +12,10 @@ async function createRedesDesarrollador(data) {
     return redesDesarrolladorCreada;
 }
 
-async function updateRedesDesarrollador(data) {
-    const redesDesarrolladorActualizada = await prisma.tbl_redes_desarrollador.update({
+async function updateRedesDesarrollador(id,data) {
+    const redesDesarrolladorActualizada = await prisma.tbl_desarrollador_redes.update({
         where: {
-            id_redes_desarrollador: data.id
+            id_desarrollador_redes: parseInt(id)
         },
         data: {
             desarrollador_redes_url: data.url,
@@ -27,9 +27,9 @@ async function updateRedesDesarrollador(data) {
 }
 
 async function deleteRedesDesarrollador(id) {
-    const redesDesarrolladorEliminada = await prisma.tbl_redes_desarrollador.delete({
+    const redesDesarrolladorEliminada = await prisma.tbl_desarrollador_redes.delete({
         where: {
-            id_redes_desarrollador: id
+            id_desarrollador_redes: parseInt(id)
         }
     });
     return redesDesarrolladorEliminada;
