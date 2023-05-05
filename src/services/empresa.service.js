@@ -8,16 +8,6 @@ async function getEmpresa() {
     return users;
 }
 
-//async function getEmpresaById(id) {
-//    const user = await prisma.tbl_empresa.findUnique({
-//        where: {
-//            id_empresa: parseInt(id)
-//        }
-//    });
-//    return user;
-//}
-
-
 async function getEmpresaById(id) {
     const empresa = await prisma.tbl_empresa.findUnique({
         where: { id_empresa: parseInt(id) },
@@ -30,6 +20,9 @@ async function getEmpresaById(id) {
           empresa_telefono: true,
           empresa_ruc: true,
           empresa_razon_social: true,
+          empresa_sector: true,
+          empresa_ubicacion: true,
+          empresa_nombre: true,
         }
     });
 
@@ -75,8 +68,6 @@ async function getEmpresaById(id) {
 
     const user = {
       ...empresa,
-    //   experiencia: experiencia,
-    //   educacion: educacion,
       trabajos:trabajos,
       redes : redes
     }

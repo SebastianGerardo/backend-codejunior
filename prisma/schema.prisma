@@ -79,6 +79,7 @@ model tbl_empresa {
   empresa_descripcion    String                   @db.LongText
   empresa_foto           String?                  @db.VarChar(250)
   empresa_encargado      String                   @db.VarChar(100)
+  empresa_nombre         String?                   @db.VarChar(100)
   empresa_email          String                   @db.VarChar(250)
   empresa_password       String                   @map("empresa_password") @db.VarChar(250)
   empresa_sector         String?                  @db.VarChar(100)
