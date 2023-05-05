@@ -5,6 +5,8 @@ const cors = require('cors');
 const Auth = require('./routes/auth.routes');
 const ApiExperienciaDesarrollador = require('./routes/experiencia.routes');
 const ApiEduacionDesarrollador = require('./routes/educacion.routes');
+const ApiTrabajos = require('./routes/trabajos.routes');
+const ApiRedesEmp = require('./routes/redes_emp.routes');
 
 const app = express();
 
@@ -26,7 +28,8 @@ ApiUsuarioDesarrollador(app)
 Auth(app)
 ApiExperienciaDesarrollador(app)
 ApiEduacionDesarrollador(app)
-
+ApiTrabajos(app)
+ApiRedesEmp(app)
 
 app.listen(3000, () => {
     console.log('Server is running on port http://localhost:3000');
