@@ -22,6 +22,7 @@ async function getEmpresaById(id) {
           empresa_razon_social: true,
           empresa_sector: true,
           empresa_ubicacion: true,
+          empresa_nombre: true,
         }
     });
 
