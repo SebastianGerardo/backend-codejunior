@@ -7,6 +7,8 @@ const ApiExperienciaDesarrollador = require('./routes/experiencia.routes');
 const ApiEduacionDesarrollador = require('./routes/educacion.routes');
 const ApiTrabajos = require('./routes/trabajos.routes');
 const ApiRedesEmp = require('./routes/redes_emp.routes');
+const ApiTecnologiaDesarrollador = require('./routes/tecnologia.desarrollador.routes');
+const ApiRedesDesarrollador = require('./routes/redes.desarrollador.routes');
 
 
 const app = express();
@@ -28,7 +30,10 @@ ApiUsuarioDesarrollador(app)
 Auth(app)
 ApiExperienciaDesarrollador(app)
 ApiEduacionDesarrollador(app)
-
+ApiTrabajos(app)
+ApiRedesEmp(app)
+ApiTecnologiaDesarrollador(app)
+ApiRedesDesarrollador(app)
 
 app.listen(3000, () => {
     console.log('Server is running on port http://localhost:3000');
