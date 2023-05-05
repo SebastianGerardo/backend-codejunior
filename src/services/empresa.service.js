@@ -8,12 +8,79 @@ async function getEmpresa() {
     return users;
 }
 
+//async function getEmpresaById(id) {
+//    const user = await prisma.tbl_empresa.findUnique({
+//        where: {
+//            id_empresa: parseInt(id)
+//        }
+//    });
+//    return user;
+//}
+
+
 async function getEmpresaById(id) {
-    const user = await prisma.tbl_empresa.findUnique({
-        where: {
-            id_empresa: parseInt(id)
+    const empresa = await prisma.tbl_empresa.findUnique({
+        where: { id_empresa: parseInt(id) },
+        select: {
+          id_empresa: true,
+          empresa_email: true,
+          empresa_encargado: true,
+          empresa_foto: true,
+          empresa_descripcion: true,
+          empresa_telefono: true,
+          empresa_ruc: true,
+          empresa_razon_social: true,
         }
     });
+
+    const trabajos = await prisma.tbl_trabajos.findMany({
+    select: {
+        id_trabajos: true,
+        trabajos_cargo: true,
+        trabajos_modalidad: true,
+        trabajos_jornada: true,
+        trabajos_salario: true,
+        trabajos_publicado: true,
+        tbl_trabajos_tecnologia: {
+        select: {
+            id_tecnologia: true,
+            tbl_tecnologia: {
+            select: {
+                tecnologia_nombre: true,
+                tecnologia_imagen: true
+            }
+            }
+        }
+        }
+    },
+    where: {
+        id_empresa: parseInt(id)
+    }
+    })
+
+    const redes = await prisma.tbl_empresa_red.findMany({
+      select: {
+        idtbl_empresa_red: true,
+        empresa_red_url: true,
+        tbl_redes: {
+          select: {
+            redes_redes: true
+          }
+        }
+      },
+      where: {
+        id_empresa: parseInt(id)
+      }
+    })
+
+    const user = {
+      ...empresa,
+    //   experiencia: experiencia,
+    //   educacion: educacion,
+      trabajos:trabajos,
+      redes : redes
+    }
+
     return user;
 }
 
