@@ -122,7 +122,7 @@ model tbl_experiencia {
   experiencia_cargo                                                      String            @db.VarChar(100)
   experiencia_finicio                                                    String            @db.VarChar(45)
   experiencia_ffin                                                       String            @db.VarChar(45)
-  experiencia_logo                                                       String?           @db.VarChar(45)
+  experiencia_logo                                                       String?           @db.VarChar(250)
   tbl_desarrollador                                                      Int
   tbl_desarrollador_tbl_experiencia_tbl_desarrolladorTotbl_desarrollador tbl_desarrollador @relation("tbl_experiencia_tbl_desarrolladorTotbl_desarrollador", fields: [tbl_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_experiencia_tbl_desarrollador")
 
