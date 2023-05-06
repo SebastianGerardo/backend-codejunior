@@ -129,17 +129,17 @@ async function createEmpresa(data) {
     const hashedPassword = await bcrypt.hash(data.empresa_password, salt);
     const user = await prisma.tbl_empresa.create({
         data: {
-            empresa_razon_social: data.empresa_razon_social,
-            empresa_ruc: data.empresa_ruc,
-            empresa_telefono: data.empresa_telefono,
-            empresa_descripcion: data.empresa_descripcion,
-            empresa_foto: data.empresa_foto,
-            empresa_encargado: data.empresa_encargado,
-            empresa_email: data.empresa_email,
-            empresa_password: hashedPassword,
-            empresa_sector: data.empresa_sector,
-            empresa_ubicacion: data.empresa_ubicacion,
-            empresa_nombre: data.empresa_nombre,
+            empresa_razon_social: data.empresa_razon_social,//
+            empresa_ruc: data.empresa_ruc,//
+            empresa_telefono: data.empresa_telefono,//
+            empresa_descripcion: data.empresa_descripcion,//
+            empresa_foto: data.empresa_foto, 
+            empresa_encargado: data.empresa_encargado,//
+            empresa_email: data.empresa_email,//
+            empresa_password: hashedPassword,//
+            empresa_sector: data.empresa_sector,//
+            empresa_ubicacion: data.empresa_ubicacion,//
+            empresa_nombre: data.empresa_nombre,//
         }
     });
     return user;

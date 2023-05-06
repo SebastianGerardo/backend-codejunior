@@ -11,6 +11,7 @@ const ApiTecnologiaDesarrollador = require('./routes/tecnologia.desarrollador.ro
 const ApiRedesDesarrollador = require('./routes/redes.desarrollador.routes');
 const ApiSala = require('./routes/chat.routes');
 const ApiMensaje = require('./routes/mensaje.routes');
+const ApiTecnologias = require('./routes/tecnologias.routes');
 
 const app = express();
 
@@ -36,6 +37,7 @@ ApiRedesEmp(app)
 ApiTecnologiaDesarrollador(app)
 ApiRedesDesarrollador(app)
 ApiSala(app)
+ApiTecnologias(app)
 ApiMensaje(app)
 
 app.listen(3000, () => {
