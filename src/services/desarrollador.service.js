@@ -59,7 +59,8 @@ async function getDesarrollador(id) {
           select: {
             empresa_razon_social: true,
             empresa_foto: true,
-            empresa_encargado: true
+            empresa_encargado: true,
+            empresa_nombre: true
           }
         },
         mensaje_des: {
@@ -89,7 +90,8 @@ async function getDesarrollador(id) {
               select: {
                 empresa_razon_social: true,
                 empresa_foto: true,
-                empresa_encargado: true
+                empresa_encargado: true,
+                empresa_nombre: true
               }
             }
           }

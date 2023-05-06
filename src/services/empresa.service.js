@@ -89,7 +89,8 @@ async function getEmpresaById(id) {
                         select: {
                             empresa_razon_social: true,
                             empresa_foto: true,
-                            empresa_encargado: true
+                            empresa_encargado: true,
+                            empresa_nombre: true
                         }
                     }
                 }
