@@ -49,12 +49,83 @@ async function getDesarrollador(id) {
         tbl_desarrollador: parseInt(id)
       }
     })
+
+    const chat = await prisma.tbl_sala.findMany({
+      select: {
+        id_sala: true,
+        id_empresa: true,
+        id_desarrollador: true,
+        mensaje_des: {
+          select: {
+            id_mensaje_des: true,
+            mensaje_des_mensaje: true,
+            mensaje_des_fecha: true,
+            id_desarrollador: true,
+            id_sala: true,
+          }
+        },
+        mensaje_emp: {
+          select: {
+            id_mensaje_emp: true,
+            mensaje_emp_mensaje: true,
+            mensaje_emp_fecha: true,
+            id_empresa: true,
+            id_sala: true,
+          }
+        }
+      },
+      where: {
+        OR: [
+          {
+            id_desarrollador: parseInt(id)
+          }
+        ]
+      },
+      // include: {
+      //   tbl_mensaje_des: {
+      //     select: {
+      //       id_mensaje_des: true,
+      //       mensaje_des_mensaje: true,
+      //       mensaje_des_fecha: true,
+      //       id_desarrollador: true,
+      //       id_sala: true,
+      //     }
+      //   },
+      //   tbl_mensaje_emp: {
+      //     select: {
+      //       id_mensaje_emp: true,
+      //       mensaje_emp_mensaje: true,
+      //       mensaje_emp_fecha: true,
+      //       id_empresa: true,
+      //       id_sala: true,
+      //     }
+      //   },
+      //   tbl_empresa: {
+      //     select: {
+      //       empresa_nombre: true,
+      //       empresa_logo: true,
+      //       empresa_descripcion: true,
+      //       empresa_email: true,
+      //       empresa_telefono: true,
+      //       empresa_direccion: true,
+      //     }
+      //   },
+      //   tbl_desarrollador: {
+      //     select: {
+      //       desarrollador_nombre: true,
+      //       desarrollador_apellido: true,
+      //     }
+      //   }
+      // }
+    })
+
     const user = {
       ...desarrollador,
       experiencia: experiencia,
       educacion: educacion,
       tecnologias:tecnologias,
-      redes : redes
+      redes : redes,
+      chat: chat
     }
 
     return user;
