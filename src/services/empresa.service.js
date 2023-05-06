@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const {PrismaClient} = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
@@ -12,64 +12,104 @@ async function getEmpresaById(id) {
     const empresa = await prisma.tbl_empresa.findUnique({
         where: { id_empresa: parseInt(id) },
         select: {
-          id_empresa: true,
-          empresa_email: true,
-          empresa_encargado: true,
-          empresa_foto: true,
-          empresa_descripcion: true,
-          empresa_telefono: true,
-          empresa_ruc: true,
-          empresa_razon_social: true,
-          empresa_sector: true,
-          empresa_ubicacion: true,
-          empresa_nombre: true,
+            id_empresa: true,
+            empresa_email: true,
+            empresa_encargado: true,
+            empresa_foto: true,
+            empresa_descripcion: true,
+            empresa_telefono: true,
+            empresa_ruc: true,
+            empresa_razon_social: true,
+            empresa_sector: true,
+            empresa_ubicacion: true,
+            empresa_nombre: true,
         }
     });
 
     const trabajos = await prisma.tbl_trabajos.findMany({
-    select: {
-        id_trabajos: true,
-        trabajos_cargo: true,
-        trabajos_modalidad: true,
-        trabajos_jornada: true,
-        trabajos_salario: true,
-        trabajos_publicado: true,
-        tbl_trabajos_tecnologia: {
         select: {
-            id_tecnologia: true,
-            tbl_tecnologia: {
-            select: {
-                tecnologia_nombre: true,
-                tecnologia_imagen: true
+            id_trabajos: true,
+            trabajos_cargo: true,
+            trabajos_modalidad: true,
+            trabajos_jornada: true,
+            trabajos_salario: true,
+            trabajos_publicado: true,
+            tbl_trabajos_tecnologia: {
+                select: {
+                    id_tecnologia: true,
+                    tbl_tecnologia: {
+                        select: {
+                            tecnologia_nombre: true,
+                            tecnologia_imagen: true
+                        }
+                    }
+                }
             }
-            }
+        },
+        where: {
+            id_empresa: parseInt(id)
         }
-        }
-    },
-    where: {
-        id_empresa: parseInt(id)
-    }
     })
 
     const redes = await prisma.tbl_empresa_red.findMany({
-      select: {
-        idtbl_empresa_red: true,
-        empresa_red_url: true,
-        tbl_redes: {
-          select: {
-            redes_redes: true
-          }
+        select: {
+            idtbl_empresa_red: true,
+            empresa_red_url: true,
+            tbl_redes: {
+                select: {
+                    redes_redes: true
+                }
+            }
+        },
+        where: {
+            id_empresa: parseInt(id)
         }
-      },
-      where: {
-        id_empresa: parseInt(id)
-      }
+    })
+
+    const chat = await prisma.tbl_sala.findMany({
+        select: {
+            id_sala: true,
+            id_empresa: true,
+            id_desarrollador: true,
+            mensaje_emp: {
+                select: {
+                    id_mensaje_emp: true,
+                    mensaje: true,
+                    fecha: true,
+                    id_empresa: true,
+                    id_sala: true,
+                    tbl_empresa: {
+                        select: {
+                            empresa_razon_social: true,
+                            empresa_foto: true
+                        }
+                    }
+                }
+            },
+            mensaje_des: {
+                select: {
+                    id_mensaje_des: true,
+                    mensaje: true,
+                    fecha: true,
+                    id_desarrollador: true,
+                    id_sala: true,
+                    tbl_desarrollador: {
+                        select: {
+                            desarrollador_nombre: true,
+                            desarrollador_apellido: true,
+                            desarrollador_foto: true,
+                        }
+                    }
+                }
+            },
+        }
     })
 
     const user = {
-      ...empresa,
-      trabajos:trabajos,
-      redes : redes
+        ...empresa,
+        trabajos: trabajos,
+        redes: redes,
+        chat: chat
     }
 
     return user;
