@@ -23,8 +23,21 @@ async function getTrabajos() {
                 empresa_razon_social: true,
                 empresa_sector: true,
                 empresa_ubicacion: true,
+                empresa_nombre: true,
+                }
+            },
+            tbl_trabajos_tecnologia: {
+            select: {
+                id_tecnologia: true,
+                tbl_tecnologia: {
+                select: {
+                    tecnologia_nombre: true,
+                    tecnologia_imagen: true
+                }
                 }
             }
+            }
+
         },
     });
     return trabajos;
