@@ -187,8 +187,8 @@ model tbl_sala {
 
 model tbl_mensaje_emp {
   id_mensaje_emp         Int                 @id @default(autoincrement())
-  mensaje_emp_mensaje    String              @db.VarChar(250)
-  mensaje_emp_fecha      String              @db.VarChar(45)
+  mensaje                String              @db.VarChar(250)
+  fecha                  String              @db.VarChar(45)
   id_empresa             Int                 @db.Int
   id_sala                Int                 @db.Int
 
@@ -201,8 +201,8 @@ model tbl_mensaje_emp {
 
 model tbl_mensaje_des {
   id_mensaje_des         Int                 @id @default(autoincrement())
-  mensaje_des_mensaje    String              @db.VarChar(250)
-  mensaje_des_fecha      String              @db.VarChar(45)
+  mensaje                String              @db.VarChar(250)
+  fecha                  String              @db.VarChar(45)
   id_desarrollador       Int                 @db.Int
   id_sala                Int                 @db.Int
 

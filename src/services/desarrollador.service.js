@@ -58,19 +58,32 @@ async function getDesarrollador(id) {
         mensaje_des: {
           select: {
             id_mensaje_des: true,
-            mensaje_des_mensaje: true,
-            mensaje_des_fecha: true,
+            mensaje: true,
+            fecha: true,
             id_desarrollador: true,
             id_sala: true,
+            tbl_desarrollador: {
+              select: {
+                desarrollador_nombre: true,
+                desarrollador_apellido: true,
+                desarrollador_foto: true,
+              }
+            }
           }
         },
         mensaje_emp: {
           select: {
             id_mensaje_emp: true,
-            mensaje_emp_mensaje: true,
-            mensaje_emp_fecha: true,
+            mensaje: true,
+            fecha: true,
             id_empresa: true,
             id_sala: true,
+            tbl_empresa: {
+              select: {
+                empresa_razon_social: true,
+                empresa_foto: true
+              }
+            }
           }
         }
       },
@@ -81,42 +94,6 @@ async function getDesarrollador(id) {
           }
         ]
       },
-      // include: {
-      //   tbl_mensaje_des: {
-      //     select: {
-      //       id_mensaje_des: true,
-      //       mensaje_des_mensaje: true,
-      //       mensaje_des_fecha: true,
-      //       id_desarrollador: true,
-      //       id_sala: true,
-      //     }
-      //   },
-      //   tbl_mensaje_emp: {
-      //     select: {
-      //       id_mensaje_emp: true,
-      //       mensaje_emp_mensaje: true,
-      //       mensaje_emp_fecha: true,
-      //       id_empresa: true,
-      //       id_sala: true,
-      //     }
-      //   },
-      //   tbl_empresa: {
-      //     select: {
-      //       empresa_nombre: true,
-      //       empresa_logo: true,
-      //       empresa_descripcion: true,
-      //       empresa_email: true,
-      //       empresa_telefono: true,
-      //       empresa_direccion: true,
-      //     }
-      //   },
-      //   tbl_desarrollador: {
-      //     select: {
-      //       desarrollador_nombre: true,
-      //       desarrollador_apellido: true,
-      //     }
-      //   }
-      // }
     })
 
     const user = {
