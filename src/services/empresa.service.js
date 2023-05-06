@@ -71,6 +71,13 @@ async function getEmpresaById(id) {
             id_sala: true,
             id_empresa: true,
             id_desarrollador: true,
+            tbl_desarrollador: {
+                select: {
+                    desarrollador_nombre: true,
+                    desarrollador_apellido: true,
+                    desarrollador_foto: true,
+                }
+            },
             mensaje_emp: {
                 select: {
                     id_mensaje_emp: true,
@@ -81,7 +88,8 @@ async function getEmpresaById(id) {
                     tbl_empresa: {
                         select: {
                             empresa_razon_social: true,
-                            empresa_foto: true
+                            empresa_foto: true,
+                            empresa_encargado: true
                         }
                     }
                 }

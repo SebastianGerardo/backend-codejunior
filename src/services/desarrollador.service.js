@@ -55,6 +55,13 @@ async function getDesarrollador(id) {
         id_sala: true,
         id_empresa: true,
         id_desarrollador: true,
+        tbl_empresa: {
+          select: {
+            empresa_razon_social: true,
+            empresa_foto: true,
+            empresa_encargado: true
+          }
+        },
         mensaje_des: {
           select: {
             id_mensaje_des: true,
@@ -81,7 +88,8 @@ async function getDesarrollador(id) {
             tbl_empresa: {
               select: {
                 empresa_razon_social: true,
-                empresa_foto: true
+                empresa_foto: true,
+                empresa_encargado: true
               }
             }
           }
