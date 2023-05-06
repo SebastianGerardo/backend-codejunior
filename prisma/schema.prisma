@@ -22,6 +22,8 @@ model tbl_desarrollador {
   tbl_desarrollador_trabajos                                                                     tbl_desarrollador_trabajos[]
   tbl_educacion_tbl_educacion_tbl_desarrolladorTotbl_desarrollador                               tbl_educacion[]                @relation("tbl_educacion_tbl_desarrolladorTotbl_desarrollador")
   tbl_experiencia_tbl_experiencia_tbl_desarrolladorTotbl_desarrollador                           tbl_experiencia[]              @relation("tbl_experiencia_tbl_desarrolladorTotbl_desarrollador")
+  salas                                                                                          tbl_sala[]
+  mensaje_des                                                                                    tbl_mensaje_des[]
 }
 
 model tbl_desarrollador_redes {
@@ -87,6 +89,8 @@ model tbl_empresa {
   tbl_empresa_red        tbl_empresa_red[]
   tbl_empresa_tecnologia tbl_empresa_tecnologia[]
   tbl_trabajos           tbl_trabajos[]
+  salas                  tbl_sala[]
+  mensaje_emp            tbl_mensaje_emp[]
 }
 
 model tbl_empresa_red {
@@ -165,4 +169,46 @@ model tbl_trabajos_tecnologia {
 
   @@index([id_tecnologia], map: "fk_tbl_puesto_trab_tecnologia_tbl_tecnologia1")
   @@index([id_trabajos], map: "fk_tbl_trabajos_tecnologia_tbl_trabajos1")
+}
+
+model tbl_sala {
+  id_sala                Int                 @id @default(autoincrement())
+  id_empresa             Int                 @db.Int
+  id_desarrollador       Int                 @db.Int
+  tbl_empresa             tbl_empresa         @relation(fields: [id_empresa], references: [id_empresa], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_sala_tbl_empresa1")
+  tbl_desarrollador       tbl_desarrollador   @relation(fields: [id_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_sala_tbl_desarrollador1")
+
+  @@index([id_empresa], map: "fk_tbl_sala_tbl_empresa1")
+  @@index([id_desarrollador], map: "fk_tbl_sala_tbl_desarrollador1")
+
+  mensaje_emp            tbl_mensaje_emp[]
+  mensaje_des            tbl_mensaje_des[]
+}
+
+model tbl_mensaje_emp {
+  id_mensaje_emp         Int                 @id @default(autoincrement())
+  mensaje_emp_mensaje    String              @db.VarChar(250)
+  mensaje_emp_fecha      String              @db.VarChar(45)
+  id_empresa             Int                 @db.Int
+  id_sala                Int                 @db.Int
+
+  tbl_empresa            tbl_empresa        @relation(fields: [id_empresa], references: [id_empresa], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_mensaje_emp_tbl_empresa1")
+  tbl_sala               tbl_sala            @relation(fields: [id_sala], references: [id_sala], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_mensaje_emp_tbl_sala1")
+
+  @@index([id_empresa], map: "fk_tbl_mensaje_emp_tbl_empresa1")
+  @@index([id_sala], map: "fk_tbl_mensaje_emp_tbl_sala1")
+}
+
+model tbl_mensaje_des {
+  id_mensaje_des         Int                 @id @default(autoincrement())
+  mensaje_des_mensaje    String              @db.VarChar(250)
+  mensaje_des_fecha      String              @db.VarChar(45)
+  id_desarrollador       Int                 @db.Int
+  id_sala                Int                 @db.Int
+
+  tbl_desarrollador      tbl_desarrollador   @relation(fields: [id_desarrollador], references: [id_desarrollador], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_mensaje_des_tbl_desarrollador1")
+  tbl_sala               tbl_sala            @relation(fields: [id_sala], references: [id_sala], onDelete: NoAction, onUpdate: NoAction, map: "fk_tbl_mensaje_des_tbl_sala1")
+
+  @@index([id_desarrollador], map: "fk_tbl_mensaje_des_tbl_desarrollador1")
+  @@index([id_sala], map: "fk_tbl_mensaje_des_tbl_sala1")
 }

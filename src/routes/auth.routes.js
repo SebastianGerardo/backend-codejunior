@@ -52,7 +52,7 @@ function Auth(app){
         }
       })
 
-    router.put('/update', verifyToken, async (req, res) => {
+    /*router.put('/update', verifyToken, async (req, res) => {
         const userId = req.userId;
         const tipoId = req.tipoId;
         try {
@@ -76,7 +76,7 @@ function Auth(app){
                 message: "Error al actualizar los datos"
             });
         }
-    }) 
+    }) */
 }
 
 module.exports = Auth;
