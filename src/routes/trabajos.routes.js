@@ -32,7 +32,7 @@ function ApiTrabajos(app){
             const trabajos = await getTrabajos();
             res.json({
                 status: true,
-                message: trabajos
+                content: trabajos
             });
         } catch (error) {
             res.status(500).json({
