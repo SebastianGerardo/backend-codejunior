@@ -1,6 +1,8 @@
 const verifyToken = require('../middlewares/auth.handler');
 const { loginUser } = require('../services/auth.service');
-const { getDesarrollador } = require('../services/desarrollador.service');
+const { getDesarrollador,
+        updateDesarrollador
+      } = require('../services/desarrollador.service');
 const { getEmpresaById } = require('../services/empresa.service');
 
 function Auth(app){
@@ -49,6 +51,32 @@ function Auth(app){
           });
         }
       })
+
+    router.put('/update', verifyToken, async (req, res) => {
+        const userId = req.userId;
+        const tipoId = req.tipoId;
+        try {
+            if (tipoId == "desarrollador") {
+                const user = await updateDesarrollador(userId, req.body);
+                res.json({
+                    status: true,
+                    content: user
+                });
+            } else if (tipoId == "empresa") {
+                const user = await updateEmpresa(userId, req.body);
+                res.json({
+                    status: true,
+                    content: user
+                });
+            }
+        } catch (err) {
+          console.log(err)
+            res.status(401).json({
+                status: 401,
+                message: "Error al actualizar los datos"
+            });
+        }
+    }) 
 }
 
 module.exports = Auth;

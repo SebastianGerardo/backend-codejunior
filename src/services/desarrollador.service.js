@@ -79,8 +79,8 @@ async function createDesarrollador(data) {
 }
 
 async function updateDesarrollador(id, data) {
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(data.desarrollador_password, salt);
+  //const salt = await bcrypt.genSalt(10);
+  //const hashedPassword = await bcrypt.hash(data.desarrollador_password, salt);
   const user = await prisma.tbl_desarrollador.update({
     where: {
       id_desarrollador: parseInt(id),
@@ -90,7 +90,6 @@ async function updateDesarrollador(id, data) {
       desarrollador_apellido: data.desarrollador_apellido,
       desarrollador_cargo: data.desarrollador_cargo,
       desarrollador_email: data.desarrollador_email,
-      desarrollador_password: hashedPassword,
       desarrollador_telefono: data.desarrollador_telefono,
       desarrollador_descripcion: data.desarrollador_descripcion,
       desarrollador_foto: data.desarrollador_foto,

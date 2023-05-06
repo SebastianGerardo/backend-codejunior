@@ -35,6 +35,15 @@ function ApiUsuarioDesarrollador(app){
             });
         }
     })
+
+    router.put('/:id', verifyToken, async (req, res) => {
+        const userId = req.userId;
+        const user = await updateDesarrollador(userId, req.body);
+        res.json({
+            status: true,
+            content: user
+        });
+    })
 }
 
 module.exports = ApiUsuarioDesarrollador;
