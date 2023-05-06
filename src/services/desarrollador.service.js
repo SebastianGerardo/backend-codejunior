@@ -28,6 +28,7 @@ async function getDesarrollador(id) {
         idtbl_desarrollador_tecnologia: true,
         id_tecnologia: {
           select: {
+            id_tecnologia: true,
             tecnologia_nombre: true,
             tecnologia_imagen: true
           }
