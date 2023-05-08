@@ -12,6 +12,7 @@ const ApiRedesDesarrollador = require('./routes/redes.desarrollador.routes');
 const ApiSala = require('./routes/chat.routes');
 const ApiMensaje = require('./routes/mensaje.routes');
 const ApiTecnologias = require('./routes/tecnologias.routes');
+const ApiRedes = require('./routes/redes.routes');
 
 const app = express();
 
@@ -39,6 +40,7 @@ ApiRedesDesarrollador(app)
 ApiSala(app)
 ApiTecnologias(app)
 ApiMensaje(app)
+ApiRedes(app)
 
 app.listen(3000, () => {
     console.log('Server is running on port http://localhost:3000');
