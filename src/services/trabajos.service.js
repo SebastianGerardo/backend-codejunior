@@ -78,6 +78,34 @@ async function actualizarTrabajo(id, data) {
     return trabajo;
 }
 
+async function crearTecnologiaTrabajo (data) {
+    const tecnologia = await prisma.tbl_trabajos_tecnologia.create({
+        data: {
+            id_trabajos: data.id_trabajos,
+            id_tecnologia: data.id_tecnologia,
+        }
+    })
+    return tecnologia;
+}
+
+async function actualizarTecnologiaTrabajo (id, data) {
+    const tecnologia = await prisma.tbl_trabajos_tecnologia.update({
+        where: { id_trabajos_tecnologia: parseInt(id) },
+        data: {
+            id_trabajos: data.id_trabajos,
+            id_tecnologia: data.id_tecnologia,
+        }
+    })
+    return tecnologia;
+}
+
+async function eliminarTecnologiaTrabajo(id) {
+    const tecnologia = await prisma.tbl_trabajos_tecnologia.delete({
+        where: { id_trabajos_tecnologia: parseInt(id) },
+    })
+    return tecnologia;
+}
+
 async function eliminarTrabajo(id) {
     const trabajo = await prisma.tbl_trabajos.delete({
         where: { id_trabajos: parseInt(id) },
@@ -90,5 +118,8 @@ module.exports = {
     getTrabajosById,
     crearTrabajo,
     actualizarTrabajo,
-    eliminarTrabajo
+    eliminarTrabajo,
+    crearTecnologiaTrabajo,
+    actualizarTecnologiaTrabajo,
+    eliminarTecnologiaTrabajo
 }

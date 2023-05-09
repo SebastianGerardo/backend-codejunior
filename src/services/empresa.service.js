@@ -159,9 +159,9 @@ async function updateEmpresa(id, data) {
             empresa_encargado: data.empresa_encargado,
             empresa_email: data.empresa_email,
             empresa_password: data.empresa_password,
-            empresa_sector: true,
-            empresa_ubicacion: true,
-            empresa_nombre: true,
+            empresa_sector: data.empresa_sector,
+            empresa_ubicacion: data.empresa_ubicacion,
+            empresa_nombre: data.empresa_nombre,
         }
     });
     return user;

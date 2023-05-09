@@ -3,7 +3,10 @@ const {
     getTrabajosById,
     crearTrabajo,
     actualizarTrabajo,
-    eliminarTrabajo
+    eliminarTrabajo,
+    crearTecnologiaTrabajo,
+    actualizarTecnologiaTrabajo,
+    eliminarTecnologiaTrabajo
 } = require('../services/trabajos.service');
 
 function ApiTrabajos(app){
@@ -27,6 +30,52 @@ function ApiTrabajos(app){
         }
     })
 
+    router.post('/tecnologia', async (req, res) => {
+        try {
+            const trabajos = await crearTecnologiaTrabajo(req.body);
+            res.json({
+                status: true,
+                message: trabajos
+            });
+        } catch {
+            res.status(500).json({
+                status: false,
+                content: "No se pudo crear la tecnología."
+            })
+        }
+    })
+
+    router.put('/tecnologia/:id', async (req, res) => {
+        try {
+            const trabajos = await actualizarTecnologiaTrabajo(req.params.id, req.body);
+            res.json({
+                status: true,
+                message: trabajos
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                status: false,
+                content: "La tecnología no se pudo actualizar."
+            })
+        }
+    })
+
+    router.delete('/tecnologia/:id', async (req, res) => {
+        try {
+            const trabajos = await eliminarTecnologiaTrabajo(req.params.id);
+            res.json({
+                status: true,
+                message: "Tecnología eliminada correctamente"
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: false,
+                content: "La tecnología no se pudo eliminar"
+            })
+        }
+    })
+    
     router.get('/', async (req, res) => {
         try {
             const trabajos = await getTrabajos();
